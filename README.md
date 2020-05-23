@@ -1,4 +1,4 @@
-# hive-hadoop-sample
+# hive-hadoop-docker
 - This repo is for studying Hadoop and Hive architecture
 - build master-slave architecture with multiple containers on one EC2 instance
 - run 4 containers with docker-compose
