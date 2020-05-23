@@ -1,5 +1,7 @@
 # hive-hadoop-sample
-This repo is for studying Hadoop and Hive architecture
+- This repo is for studying Hadoop and Hive architecture
+- build master-slave architecture with multiple containers on one EC2 instance
+- run 4 containers with docker-compose
 
 
 ## Architecture 
@@ -7,7 +9,7 @@ This repo is for studying Hadoop and Hive architecture
 ![Architecture](architecture.png)
 
 
-## Requirements
+## Requirements (one EC2 on AWS)
 - AMI: RHEL ver.8 
 - Instance Type: t2.large
 - Storage: 10GB
