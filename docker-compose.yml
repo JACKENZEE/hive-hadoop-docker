@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+    masternode:
+        image: hdfs-masternode 
+        ports:
+            - "9870:9870"
+            - "8088:8088"
+            - "2220:22"
+        volumes:
+            - ./data:/opt/hadoop/data 
+        environment:
+            - "USER=root"
+        depends_on:
+            - "db-server"
+        networks:
+            default:
+                ipv4_address: 172.20.0.2
+
+    slavenode1:
+        image: hdfs-slavenode 
+        ports:
+            - "2221:22"
+        volumes:
+            - ./data:/opt/hadoop/data 
+        environment:
+            - "USER=root"
+        depends_on:
+            - "masternode"
+        networks:
+            default:
+                ipv4_address: 172.20.0.3
+
+    slavenode2:
+        image: hdfs-slavenode
+        ports:
+            - "2222:22"
+        volumes:
+            - ./data:/opt/hadoop/data 
+        environment:
+            - "USER=root"
+        depends_on:
+            - "masternode"
+        networks:
+            default:
+                ipv4_address: 172.20.0.4
+
+    slavenode3:
+        image: hdfs-slavenode
+        ports:
+            - "2223:22"
+        volumes:
+            - ./data:/opt/hadoop/data 
+        environment:
+            - "USER=root"
+        depends_on:
+            - "masternode"
+        networks:
+            default:
+                ipv4_address: 172.20.0.5
+
+    db-server:
+        image: db-server
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - ./db-server/initdb:/docker-entrypoint-initdb.d 
+            - database:/var/lib/mysql 
+        networks:
+            default:
+                ipv4_address: 172.20.0.6
+
+volumes:
+    database:
+        driver: local
+
+
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.20.0.0/24
+        
